@@ -5,7 +5,7 @@ local M = {}
 local config = {}
 
 
----配置元类
+---config class
 local Config = {}
 
 
@@ -25,7 +25,6 @@ function M.set(conf)
   config = Config:new(conf or {})
 end
 
-
 ---Combine user preferences with defaults preferring the user's own settings
 function Config:merge(defaults)
   assert(defaults and type(defaults) == "table", "A valid config table must be passed to merge")
@@ -33,17 +32,13 @@ function Config:merge(defaults)
   return self
 end
 
-
-
-
 local function get_defaults()
-    return{    
-        options = {
-            plugin_name = "demo",
+  return {
+    options = {
+      plugin_name = "demo",
     }
-}
+  }
 end
-
 
 --- Merge user config with defaults
 function M.apply()
@@ -51,9 +46,6 @@ function M.apply()
   config:merge(defaults)
   return config
 end
-
-
-
 
 return setmetatable(M, {
   __index = function(_, k)

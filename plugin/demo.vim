@@ -4,23 +4,26 @@
 " Author: Yu Ling
 " -----------------------------------------------------------------------------
 
-if exists("g:loaded_demo") || v:version<700
+if exists("g:loaded_demovs") || v:version<700
    echo "Has loaded"
    finish
 endif
-let g:loaded_demo = 1
 
+function! DemoVsInit()
 
-function! DemoInit()
     if !has("python")
         echo "Don't support python!"
     endif
+
     call demo#test()
-    echo "This is demo script!"
+    call lib#test()
+
+
+
 endfunction
 
 function! demo#test()
-    echo "Test"
+    echo "This is demovs Test"
 endfunction
 
 
@@ -29,5 +32,8 @@ function! s:Test()
     echo "Test"
 endfunction
 
+map r :call lib#CompileRun()<CR>
+command! -nargs=0 DemoVsInit call DemoVsInit()
 
-command! -nargs=0 DemoInit call DemoInit()
+
+let g:loaded_demovs = 1

@@ -1,4 +1,3 @@
-
 --- @module "demo.utils"
 local utils = require("demo.utils")
 
@@ -12,7 +11,10 @@ local main = require("demo.main")
 local api = vim.api
 local M = {
     default = main.default,
+    os = main.os,
+    default_dirs = main.default_dirs,
     opts = config.DEFAULT_OPTS,
+    ui = main.ui,
 }
 
 local demo_namespace = api.nvim_create_namespace('demo')
@@ -21,23 +23,19 @@ local demo_namespace = api.nvim_create_namespace('demo')
 
 
 
-
-
-
-
-
 local function setup_nvim_commands()
     local cmd = api.nvim_create_user_command
-    cmd("DemoName",function() M.default() end,{nargs = 0 })
+    cmd("DemoName", function() M.default() end, { nargs = 0 })
+    cmd("DemoOsName", function() M.os() end, { nargs = 0 })
+    cmd("DemoDefalultDirs", function() M.default_dirs() end, { nargs = 0 })
 
 end
-
 
 local function setup_nvim_auto_commands(opts)
     local myAutoGroup = vim.api.nvim_create_augroup("demo", {})
 
     local autocmd = vim.api.nvim_create_autocmd
-    
+
     -- autocmd('Vimenter',{
     -- group = myAutoGroup,
     -- pattern = '*',
@@ -48,11 +46,6 @@ local function setup_nvim_auto_commands(opts)
     -- })
 
 end
-
-
-
-
-
 
 M.options = {}
 
@@ -74,6 +67,5 @@ function M.setup(opts)
     setup_nvim_commands()
     setup_nvim_auto_commands()
 end
-
 
 return M
